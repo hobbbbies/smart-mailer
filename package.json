@@ -32,6 +32,9 @@
   },
   "homepage": "https://github.com/hobbbbies/express-template#readme",
   "devDependencies": {
+    "axios": "^1.11.0",
+    "cors": "^2.8.5",
+    "nodemailer": "^7.0.5",
     "prisma": "^6.9.0"
   }
 }
