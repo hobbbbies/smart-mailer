@@ -4,8 +4,7 @@ require('dotenv').config();
 
 async function sendEmail(req, res) {
   try {
-    const { sender, receiver, subject } = req.body
-    const body = req.generatedEmail;
+    const { senderName, sender, receiver, subject, body } = req.body
     const transporter = nodemailer.createTransport({
         host: process.env.EMAIL_HOST,
         port: process.env.EMAIL_PORT || 587,
@@ -17,14 +16,14 @@ async function sendEmail(req, res) {
     });
 
     const mailOptions = {
-        from: `${sender} <${process.env.EMAIL_USER}>`,
+        from: `${senderName} <${process.env.EMAIL_USER}>`,
         to: receiver,
         subject,
         text: body
     };
 
     const info = await transporter.sendMail(mailOptions);
-    res.json({ success: true, messageId: info.messageId });
+    res.json({ success: true, messageId: info.messageId, });
   } catch(error) {
     res.status(500).json({ success: false, message: `Error sending email: ${error.message}` });
   }

@@ -3,10 +3,8 @@ const router = express.Router();
 const controller = require('../controllers/emailController');
 const llm = require('../services/llm');
 
-router.post('/', llm.generateEmailContent, controller.sendEmail);
-router.post('/test', llm.generateEmailContent, (req, res) => {
-    console.log(req.generatedEmail);
-    res.status(200);
-})
+router.post('/', llm.generateEmailContent);
+router.post('/update', llm.updateEmailContent);
+router.post('/send', controller.sendEmail);
 
 module.exports = router;
