@@ -19,7 +19,7 @@ async function sendEmail(req, res) {
         from: `${senderName} <${process.env.EMAIL_USER}>`,
         to: receiver,
         subject,
-        text: body
+        text: body,
     };
 
     const info = await transporter.sendMail(mailOptions);
