@@ -5,9 +5,6 @@ const emailRouter = require("./routes/emailRouter");
 const authService = require("./services/auth");
 const PORT = process.env.PORT || 3000;
 const cors = require('cors');
-// const { PrismaClient } = require('./generated/prisma');
-// const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
-// const prisma = new PrismaClient()
 
 require('dotenv').config();
 app.set("view engine", "ejs");
