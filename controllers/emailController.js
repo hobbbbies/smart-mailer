@@ -6,13 +6,14 @@ async function sendEmail(req, res) {
   try {
     const { senderName, sender, receiver, subject, body } = req.body
     const transporter = nodemailer.createTransport({
-        host: process.env.EMAIL_HOST,
-        port: process.env.EMAIL_PORT || 587,
-        secure: false,
+        service: 'gmail',
         auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS,
-        },
+            type: "OAuth2",
+            user: "stefankvitanov@gmail.com",
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            refreshToken: req.refreshToken
+        }
     });
 
     const mailOptions = {
