@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const emailController = require('../controllers/emailController');
 const jwt = require('jsonwebtoken');
+const getToken = require('../services/getToken'); // From localstorage
 
 // Prisma ORM 
 const { PrismaClient } = require('../generated/prisma');
@@ -25,7 +26,6 @@ router.get('/auth', (req, res) => {
     prompt: 'consent'
   });
   res.redirect(authUrl);
-  console.log("Done /auth");
 });
 
 router.get('/oauth2callback', async (req, res) => {
@@ -41,8 +41,8 @@ router.get('/oauth2callback', async (req, res) => {
     // For development: store refresh token with id '1' and placeholder email
     if (tokens.refresh_token) {
       await prisma.oAuthToken.upsert({
-        where: { id: '1' },
-        update: { refreshToken: tokens.refresh_token, email: 'dev@example.com' },
+        where: { email: idToken?.email},
+        update: { refreshToken: tokens.refresh_token, email: idToken?.email },
         create: {
           googleId: idToken?.sub,
           email: idToken?.email,
@@ -53,12 +53,13 @@ router.get('/oauth2callback', async (req, res) => {
     } else {
       console.warn('Missing refresh_token. Not saving to DB.');
     }
-
-    res.send('✅ Authentication successful. You can now send email.');
+    res.redirect(`${process.env.FRONTEND_URL}/?token=${tokens.id_token}`);
   } catch (err) {
     console.error('Error getting tokens:', err);
     res.status(500).send('❌ Failed to authenticate');
   }
 });
+
+router.get('/validate-token', getToken);
 
 module.exports = router;
