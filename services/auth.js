@@ -14,7 +14,8 @@ const oauth2Client = new google.auth.OAuth2(
   process.env.OAUTH_REDIRECT_LOCAL
 );
 
-const SCOPES = ['https://www.googleapis.com/auth/gmail.send'];
+// const SCOPES = ['https://www.googleapis.com/auth/gmail.send'];
+const SCOPES = ['https://mail.google.com'];
 
 router.get('/auth', (req, res) => {
   const authUrl = oauth2Client.generateAuthUrl({
@@ -23,6 +24,7 @@ router.get('/auth', (req, res) => {
     prompt: 'consent'
   });
   res.redirect(authUrl);
+  console.log("Done /auth");
 });
 
 router.get('/oauth2callback', async (req, res) => {
@@ -31,6 +33,7 @@ router.get('/oauth2callback', async (req, res) => {
   try {
     const { tokens } = await oauth2Client.getToken(code); // exchange code for tokens
     oauth2Client.setCredentials(tokens);
+    console.log('tokens object: ', tokens);
     console.log('Access Token:', tokens.access_token);
     console.log('Refresh Token:', tokens.refresh_token);
     // For development: store refresh token with id '1' and placeholder email
