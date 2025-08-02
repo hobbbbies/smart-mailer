@@ -42,9 +42,9 @@ const { google } = require('googleapis');
 
 async function sendEmailGmailApi(req, res) {
   try {
-    const { senderName, receiver, subject, body } = req.body;
+    const { sender, receiver, subject, body } = req.body;
     // Fetch refresh token from DB (dev: id '1')
-    const tokenRecord = await prisma.oAuthToken.findUnique({ where: { id: '1' } });
+    const tokenRecord = await prisma.oAuthToken.findUnique({ where: { email: sender } });
     if (!tokenRecord || !tokenRecord.refreshToken) {
       return res.status(500).json({ success: false, message: 'No refresh token found in DB.' });
     }

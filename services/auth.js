@@ -3,6 +3,7 @@ const { google } = require('googleapis');
 const express = require('express');
 const router = express.Router();
 const emailController = require('../controllers/emailController');
+const jwt = require('jsonwebtoken');
 
 // Prisma ORM 
 const { PrismaClient } = require('../generated/prisma');
@@ -15,7 +16,7 @@ const oauth2Client = new google.auth.OAuth2(
 );
 
 // const SCOPES = ['https://www.googleapis.com/auth/gmail.send'];
-const SCOPES = ['https://mail.google.com'];
+const SCOPES = ['https://www.googleapis.com/auth/gmail.send', 'openid', 'profile', 'email'];
 
 router.get('/auth', (req, res) => {
   const authUrl = oauth2Client.generateAuthUrl({
@@ -33,18 +34,18 @@ router.get('/oauth2callback', async (req, res) => {
   try {
     const { tokens } = await oauth2Client.getToken(code); // exchange code for tokens
     oauth2Client.setCredentials(tokens);
-    console.log('tokens object: ', tokens);
-    console.log('Access Token:', tokens.access_token);
-    console.log('Refresh Token:', tokens.refresh_token);
+
+    const idToken = jwt.decode(tokens.id_token);
+    console.log('IdToken: ', idToken);
+
     // For development: store refresh token with id '1' and placeholder email
     if (tokens.refresh_token) {
       await prisma.oAuthToken.upsert({
         where: { id: '1' },
         update: { refreshToken: tokens.refresh_token, email: 'dev@example.com' },
         create: {
-          id: '1',
-          googleId: 'dev',
-          email: 'stefankvitanov@gmail.com',
+          googleId: idToken?.sub,
+          email: idToken?.email,
           refreshToken: tokens.refresh_token,
         },
       });
