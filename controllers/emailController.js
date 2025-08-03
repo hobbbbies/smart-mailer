@@ -2,29 +2,21 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 const { PrismaClient } = require('../generated/prisma');
 const prisma = new PrismaClient();
+const { Resend } = require('resend');
 
-async function sendEmail(req, res) {
+async function sendEmailThirdParty(req, res) {
   try {
     const { senderName, sender, receiver, subject, body } = req.body;
-    // Fetch refresh token from DB (dev: id '1')
-    const tokenRecord = await prisma.oAuthToken.findUnique({ where: { id: '1' } });
-    if (!tokenRecord || !tokenRecord.refreshToken) {
-      return res.status(500).json({ success: false, message: 'No refresh token found in DB.' });
-    }
-    console.log('tokeNNN: ', tokenRecord.refreshToken);
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        type: 'OAuth2',
-        user: 'stefankvitanov@gmail.com',
-        clientId: process.env.OAUTH_CLIENT_ID,
-        clientSecret: process.env.OAUTH_CLIENT_SECRET,
-        refreshToken: tokenRecord.refreshToken
-      }
+        service:  'Mailgun',
+        auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+        }
     });
 
     const mailOptions = {
-      from: `${senderName} <stefankvitanov@gmail.com>`,
+      from: `${senderName} <${process.env.EMAIL_USER}> <${sender}>`,
       to: receiver,
       subject,
       text: body,
@@ -38,12 +30,36 @@ async function sendEmail(req, res) {
   }
 }
 
+// Need a domain for this shit, not using it. 
+async function sendEmailResendAPI(req, res) {
+    try {
+        const resend = new Resend;
+        const { senderName, sender, receiver, subject, body } = req.body;
+        const { data, error } = await resend.emails.send({
+            from: `${senderName} <onboarding@resend.dev>`,
+            to: receiver,
+            subject,
+            html: '<p>Testing 123</p>'
+        })
+        if (error) {
+            console.log(error);
+            return res.status(400).json({ success: false, message: `Error sending email: ${error.message}` });
+        }
+        console.log(data);
+        console.log('to: ', receiver);
+        res.json({ success: true, messageId: data });
+    } catch(error) {
+        res.status(500).json({ success: false, message: `Error sending email: ${error.message}` });
+    }
+}
+
 const { google } = require('googleapis');
 
 async function sendEmailGmailApi(req, res) {
   try {
     const { sender, receiver, subject, body } = req.body;
-    // Fetch refresh token from DB (dev: id '1')
+
+    // Fetch refresh token
     const tokenRecord = await prisma.oAuthToken.findUnique({ where: { email: sender } });
     if (!tokenRecord || !tokenRecord.refreshToken) {
       return res.status(500).json({ success: false, message: 'No refresh token found in DB.' });
@@ -83,5 +99,5 @@ async function sendEmailGmailApi(req, res) {
   }
 }
 
-module.exports = { sendEmail, sendEmailGmailApi };
+module.exports = { sendEmailResendAPI, sendEmailGmailApi };
 

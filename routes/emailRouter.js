@@ -5,7 +5,7 @@ const llm = require('../services/llm');
 
 router.post('/', llm.generateEmailContent);
 router.post('/update', llm.updateEmailContent);
-router.post('/send', controller.sendEmail);
 router.post('/send-gmail', controller.sendEmailGmailApi);
+router.post('/send-thirdParty', controller.sendEmailResendAPI);
 
 module.exports = router;
