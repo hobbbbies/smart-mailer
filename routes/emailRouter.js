@@ -5,9 +5,9 @@ const llm = require('../services/llm');
 const multer = require('multer');
 const upload = multer();
 
-router.post('/', llm.generateEmailContent);
-router.post('/update', llm.updateEmailContent);
-router.post('/send-gmail', upload.array('attachment'), controller.sendEmailGmailApi); // Change to upload.array for multiple extensions later
+router.post('/', llm.generateEmailContent_OpenAI);
+router.post('/update', llm.updateEmailContent_OpenAI);
+router.post('/send-gmail', upload.array('attachments'), controller.sendEmailGmailApi); // Change to upload.array for multiple extensions later
 router.post('/send-thirdParty', controller.sendEmailResendAPI);
 
 module.exports = router;

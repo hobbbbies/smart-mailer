@@ -69,9 +69,9 @@ async function sendEmailGmailApi(req, res) {
   try {
     const { sender, receiver, subject, body } = req.body;
     console.log('req.body: ', req.body);
-    console.log('req.file: ', req.file);
+    console.log('req.file: ', req.files);
     // const base64File = req.file.buffer.toString('base64');
-    const attachmentsArray = req.file?.map((file) => {
+    const attachmentsArray = req.files?.map((file) => {
         const base64File = file.buffer.toString('base64');
         return { 
             filename: file.originalname, 
