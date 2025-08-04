@@ -70,7 +70,15 @@ async function sendEmailGmailApi(req, res) {
     const { sender, receiver, subject, body } = req.body;
     console.log('req.body: ', req.body);
     console.log('req.file: ', req.file);
-    const base64File = req.file.buffer.toString('base64');
+    // const base64File = req.file.buffer.toString('base64');
+    const attachmentsArray = req.file?.map((file) => {
+        const base64File = file.buffer.toString('base64');
+        return { 
+            filename: file.originalname, 
+            content: base64File, 
+            encoding: 'base64' 
+        };
+    });
 
     // Fetch refresh token
     const tokenRecord = await prisma.oAuthToken.findUnique({ where: { email: sender } });
@@ -93,13 +101,7 @@ async function sendEmailGmailApi(req, res) {
         html: `<strong>${body}</strong>`,
         subject: subject,
         textEncoding: "base64",
-        attachments: [
-            {   // encoded string as an attachment
-                filename: req.file.originalname,
-                content: base64File,
-                encoding: 'base64'
-            },
-        ]
+        attachments: attachmentsArray
         });
 
     // Turn into MIME format
