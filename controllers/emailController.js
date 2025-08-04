@@ -98,7 +98,6 @@ async function sendEmailGmailApi(req, res) {
         {
         to: receiver,
         text: body,
-        html: `<strong>${body}</strong>`,
         subject: subject,
         textEncoding: "base64",
         attachments: attachmentsArray
