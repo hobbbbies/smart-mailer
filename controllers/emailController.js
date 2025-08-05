@@ -4,6 +4,7 @@ const { PrismaClient } = require('../generated/prisma');
 const prisma = new PrismaClient();
 const { Resend } = require('resend');
 const MailComposer = require('nodemailer/lib/mail-composer');
+const { google } = require('googleapis');
 
 /** 
  * @desc Send email using Nodemailer and Mailgun SMTP (Not used in production)
@@ -41,7 +42,7 @@ async function sendEmailThirdParty(req, res) {
 async function sendEmailResendAPI(req, res) {
     try {
         const resend = new Resend;
-        const { senderName, sender, receiver, subject, body } = req.body;
+        const { senderName, receiver, subject } = req.body;
         const { data, error } = await resend.emails.send({
             from: `${senderName} <onboarding@resend.dev>`,
             to: receiver,
@@ -52,24 +53,17 @@ async function sendEmailResendAPI(req, res) {
             console.log(error);
             return res.status(400).json({ success: false, message: `Error sending email: ${error.message}` });
         }
-        console.log(data);
-        console.log('to: ', receiver);
         res.json({ success: true, messageId: data });
     } catch(error) {
         res.status(500).json({ success: false, message: `Error sending email: ${error.message}` });
     }
 }
-
-const { google } = require('googleapis');
-
 /**
  * @desc Send email using the Gmail API with OAuth2 and optional base64 attachment
  */
 async function sendEmailGmailApi(req, res) {
   try {
     const { sender, receiver, subject, body } = req.body;
-    console.log('req.body: ', req.body);
-    console.log('req.file: ', req.files);
     // const base64File = req.file.buffer.toString('base64');
     const attachmentsArray = req.files?.map((file) => {
         const base64File = file.buffer.toString('base64');
@@ -124,35 +118,14 @@ async function sendEmailGmailApi(req, res) {
           console.log('Error sending email', err);
           return res.status(400).json({ success: false, message: `Error sending email: ${err.message}` });
         }
-        console.log('Sending email reply from server:', result.data);
         res.json({ success: true, messageId: result.data.id });
       });
     })
-    // Create raw email
-    // const messageParts = [
-    //   `To: ${receiver}`,
-    //   `Subject: ${subject}`,
-    //   '',
-    //   body
-    // ];
-    // const message = messageParts.join('\n');
-    // const encodedMessage = Buffer.from(message)
-    //   .toString('base64')
-    //   .replace(/\+/g, '-')
-    //   .replace(/\//g, '_')
-    //   .replace(/=+$/, '');
-
-    // const response = await gmail.users.messages.send({
-    //   userId: 'me',
-    //   requestBody: {
-    //     raw: encodedMessage
-    //   }
-    // });
   } catch (error) {
     console.log(error);
     res.status(400).json({ success: false, message: `Error sending email: ${error.message}` });
   }
 }
 
-module.exports = { sendEmailResendAPI, sendEmailGmailApi };
+module.exports = { sendEmailGmailApi, sendEmailResendAPI };
 

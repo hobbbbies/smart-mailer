@@ -7,7 +7,7 @@ const upload = multer();
 
 // --DEVELOPMENT MODEL--
 router.post('/', llm.generateEmailContent);
-router.post('/update', llm.updateEmailContent);
+router.post('/update', llm.updateEmailContent);    
 
 // --PRODUCTION MODEL--
 // router.post('/', llm.generateEmailContent_OpenAI);

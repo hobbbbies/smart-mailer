@@ -8,11 +8,21 @@ const axios = require('axios');
 async function generateEmailContent(req, res) {
   const { descriptionPrompt, senderName, receiverName, subject, sender, receiver, tone } = req.body
   const prompt = `
-    Write a ${tone || 'professional, polite'} email from ${senderName} to ${receiverName}.
-    The message should: ${descriptionPrompt}.
-    Do not include the subject.
+You are an expert email assistant.
 
-    Start the email with "Dear ${receiverName}," and end with "Best regards, ${senderName}".
+Task: Write a ${tone || 'professional, polite'} email from ${senderName} to ${receiverName}.
+
+Email subject (for context): "${subject}"
+
+User's request:
+"${descriptionPrompt}"
+
+Instructions:
+- Write the email body only - do NOT include the subject line.
+- Start the email with "Dear ${receiverName}," and end with "Best regards, ${senderName}".
+- Keep the tone ${tone || 'professional and polite'}.
+- Focus on fulfilling the user's specific request while maintaining clarity and appropriate formatting.
+- Use the subject as additional context to understand the topic and purpose of the email.
     `;
 
   try {
@@ -39,11 +49,6 @@ async function updateEmailContent(req, res) {
     const formattedPrompts = Array.isArray(promptHistory)
         ? promptHistory.map((prompt, i) => `${i + 1}. ${prompt}`).join('\n')
         : promptHistory;
-
-    console.log("response history: ", responseHistory);
-    console.log("prompt history: ", promptHistory);
-    console.log("formatted email history: ", formattedHistory);
-    console.log("formatted prompt history: ", formattedPrompts);
 
     const prompt = `
         You are an expert email assistant.
@@ -94,13 +99,22 @@ const OPENAI_MODEL = 'gpt-4.1-nano';
 
 async function generateEmailContent_OpenAI(req, res) {
   const { descriptionPrompt, senderName, receiverName, subject, sender, receiver, tone } = req.body;
-
   const prompt = `
-Write a ${tone || 'professional, polite'} email from ${senderName} to ${receiverName}.
-The message should: ${descriptionPrompt}.
-Do not include the subject.
+You are an expert email assistant.
 
-Start the email with "Dear ${receiverName}," and end with "Best regards, ${senderName}".
+Task: Write a ${tone || 'professional, polite'} email from ${senderName} to ${receiverName}.
+
+Email subject (for context): "${subject}"
+
+User's request:
+"${descriptionPrompt}"
+
+Instructions:
+- Write the email body only - do NOT include the subject line.
+- Start the email with "Dear ${receiverName}," and end with "Best regards, ${senderName}".
+- Keep the tone ${tone || 'professional and polite'}.
+- Focus on fulfilling the user's specific request while maintaining clarity and appropriate formatting.
+- Use the subject as additional context to understand the topic and purpose of the email.
 `;
 
   try {
