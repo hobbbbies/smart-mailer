@@ -4,8 +4,11 @@
 Simply describe what you want to say, and the AI will generate a high-quality draft that you can edit—or refine further with follow-up prompts for a more tailored message.  
 Smart Mailer also supports attachments for almost any file type, making it easy to send complete, professional emails without hassle.
 
-🔗 **Live demo:** [Smart Mailer App](https://smart-mailer-fe-production.up.railway.app/)
+---
+### 🚀 LIVE DEMO
 
+👉 **Try Smart Mailer now:**  
+🔗 **https://smart-mailer-fe-production.up.railway.app/**
 ---
 
 ## 🎥 Demo
@@ -60,6 +63,7 @@ Secure Gmail integration using **OAuth 2.0**:
 ---
 
 ## 🖥️ Frontend Overview
+- The frontend repo can be found [here](https://github.com/hobbbbies/smart-mailer-FE)
 
 ### 1. Main Page
 
@@ -72,6 +76,47 @@ Secure Gmail integration using **OAuth 2.0**:
 - User can either manually edit body, or send a **follow up** query prompt to the backend, outling what they would like to be changed.
 - Once the user is happy, they can press the send button, and *voila*
 
+
+## How to Install 
+1. - Clone this repo
+   - npm install
+   - node app.js
+2. - Clone the [frontend repo](https://github.com/hobbbbies/smart-mailer-FE)
+   - npm install
+   - npm run build
+   - npm run dev
+   
+Backend **env variables:** 
+- `FRONTEND_URL`: URL of the deployed frontend (e.g., https://smart-mailer-fe-production.up.railway.app)
+
+- `NODE_ENV`: Environment type (e.g., "production" or "development")
+
+- `OPENAI_API_KEY`: API key for accessing OpenAI's models *ollama locally hosted models work instead, if NODE_ENV is set to 'development'
+
+- `OAUTH_CLIENT_ID`: Google OAuth client ID for Gmail API integration
+
+- `OAUTH_CLIENT_SECRET`: Google OAuth client secret
+
+- `OAUTH_REDIRECT_LOCAL`: Redirect URI for Google OAuth (used after login)
+
+- `DATABASE_URL`: PostgreSQL database connection string (used by Prisma)
+
+- `PORT`: The port the backend server runs on (e.g., 8080)
+
+- `Mailgun section (NOT FULLY IMPLEMENTED)`
+  This section isn't fully up and running right now, but you may need placeholders for these variables at the very least
+  - `MAILGUN_API_KEY`: Mailgun API key for sending emails via SMTP (used for third-party sending)
+  
+  - `EMAIL_USER`: Mailgun "from" address (used as sender)
+  
+  - `EMAIL_PASS`: SMTP password for the Mailgun user
+  
+  - `EMAIL_HOST`: SMTP server host (e.g., smtp.mailgun.org)
+  
+  - `EMAIL_PORT`: Port used for SMTP (e.g., 587)
+  - `RESEND_API_KEY`: API key for Resend (alternative SMTP provider)
+
+---
 
 # *Lessons learned*
 
