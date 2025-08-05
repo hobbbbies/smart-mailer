@@ -3,7 +3,7 @@ Smart Mailer is an AI-powered email composer designed to simplify professional e
 Smart Mailer also supports attachments for almost any file type, making it easy to send complete, professional emails without hassle.
 <br><br>**Link to project:** https://smart-mailer-fe-production.up.railway.app/
 
-![alt tag](./public/Screenshot%202025-08-05%20at%204.14.08 PM.png)
+![alt tag](./public/Screenshot%202025-08-05%20at%204.00.11 PM.png)
 
 ## How It's Made:
 
