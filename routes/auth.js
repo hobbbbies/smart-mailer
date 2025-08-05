@@ -35,8 +35,11 @@ router.get('/oauth2callback', async (req, res) => {
     const { tokens } = await oauth2Client.getToken(code); // exchange code for tokens
     oauth2Client.setCredentials(tokens);
 
+    const grantedScopes = tokens.scope?.split(' ') || [];
+    if (!grantedScopes.includes('https://www.googleapis.com/auth/gmail.send')) {
+      res.redirect(`${process.env.FRONTEND_URL}/?denied=true`)
+    }
     const idToken = jwt.decode(tokens.id_token);
-    console.log('IdToken: ', idToken);
 
     // For development: store refresh token with id '1' and placeholder email
     if (tokens.refresh_token) {

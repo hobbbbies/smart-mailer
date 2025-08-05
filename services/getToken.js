@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const getToken = (req, res, next) => {
+const getToken = (req, res) => {
     try {
         const bearerHeader = req.headers['authorization'];
         if (typeof bearerHeader !== undefined) {

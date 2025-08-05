@@ -83,7 +83,7 @@ async function sendEmailGmailApi(req, res) {
       process.env.OAUTH_CLIENT_ID,
       process.env.OAUTH_CLIENT_SECRET,
       process.env.OAUTH_REDIRECT_LOCAL
-    );
+    );  
     oauth2Client.setCredentials({ refresh_token: tokenRecord.refreshToken });
     const gmail = google.gmail({ version: 'v1', auth: oauth2Client });
 
