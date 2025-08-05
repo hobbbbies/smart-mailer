@@ -76,8 +76,8 @@ Secure Gmail integration using **OAuth 2.0**:
 - User can either manually edit body, or send a **follow up** query prompt to the backend, outling what they would like to be changed.
 - Once the user is happy, they can press the send button, and *voila*
 
-
-## How to Install 
+---
+# *How to Install*
 1. - Clone this repo
    - npm install
    - node app.js
@@ -93,12 +93,12 @@ Backend **env variables:**
 
 - `OPENAI_API_KEY`: API key for accessing OpenAI's models *ollama locally hosted models work instead, if NODE_ENV is set to 'development'
 
-- `OAUTH_CLIENT_ID`: Google OAuth client ID for Gmail API integration
+- `OAUTH_CLIENT_ID`: Google OAuth client ID for Gmail API integration * **Need to make a google cloud project to obtain** *
 
-- `OAUTH_CLIENT_SECRET`: Google OAuth client secret
+- `OAUTH_CLIENT_SECRET`: Google OAuth client secret - * **Need to make a google cloud project to obtain** *
 
-- `OAUTH_REDIRECT_LOCAL`: Redirect URI for Google OAuth (used after login)
-
+- `OAUTH_REDIRECT_LOCAL`: Redirect URI for Google OAuth (used after login) * **Need to make a google cloud project to obtain** *
+  
 - `DATABASE_URL`: PostgreSQL database connection string (used by Prisma)
 
 - `PORT`: The port the backend server runs on (e.g., 8080)
@@ -114,8 +114,15 @@ Backend **env variables:**
   - `EMAIL_HOST`: SMTP server host (e.g., smtp.mailgun.org)
   
   - `EMAIL_PORT`: Port used for SMTP (e.g., 587)
-  - `RESEND_API_KEY`: API key for Resend (alternative SMTP provider)
+  - (Probably skip this one)`RESEND_API_KEY`: API key for Resend (alternative SMTP provider)
 
+Frontend **env variables:**
+
+- `PORT`: (Not needed for localhost) The port the frontend development server runs on (e.g., `5173`).  
+  This is used when running the app locally with `npm run dev`.
+
+- `VITE_API_URL`: The base URL of the backend server (e.g., `https://smart-mailer-production.up.railway.app`).  
+  This tells the frontend where to send API requests during development and production.
 ---
 
 # *Lessons learned*
