@@ -23,6 +23,10 @@ Here's what the final email looks like:
 
 ![Email result](./public/email-result.png)
 
+## Third Party SMPT Integration (WIP)
+
+Smart Mailer supports the option to avoid giving sensitive permissions, such as email sending to the server. Instead, users can choose 'Third Party' at the top section of the screen, to use the Resend API to send emails from an external domain, instead of their own gmail account. 
+
 ---
 # *How it's Made*
 
