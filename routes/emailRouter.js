@@ -17,6 +17,6 @@ if (process.env.NODE_ENV !== 'production') {
     router.post('/update', llm.updateEmailContent_OpenAI);
 }
 router.post('/send-gmail', upload.array('attachments'), controller.sendEmailGmailApi); // Change to upload.array for multiple extensions later
-router.post('/send-thirdParty', controller.sendEmailResendAPI);
+router.post('/send-third-party', controller.sendEmailResendAPI);
 
 module.exports = router;

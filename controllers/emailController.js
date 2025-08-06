@@ -41,7 +41,14 @@ async function sendEmailThirdParty(req, res) {
  */
 async function sendEmailResendAPI(req, res) {
     try {
+        console.log('=== sendEmailResendAPI Debug Info ===');
+        console.log('req.body:', req.body);
+        console.log('req.headers:', req.headers);
+        console.log('req.method:', req.method);
+        console.log('===================================');
+        
         const resend = new Resend;
+
         const { senderName, receiver, subject } = req.body;
         const { data, error } = await resend.emails.send({
             from: `${senderName} <onboarding@resend.dev>`,
@@ -55,6 +62,7 @@ async function sendEmailResendAPI(req, res) {
         }
         res.json({ success: true, messageId: data });
     } catch(error) {
+        console.error(error);
         res.status(500).json({ success: false, message: `Error sending email: ${error.message}` });
     }
 }
