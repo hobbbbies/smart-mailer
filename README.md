@@ -27,6 +27,10 @@ Here's what the final email looks like:
 
 Smart Mailer supports the option to avoid giving sensitive permissions, such as email sending to the server. Instead, users can choose 'Third Party' at the top section of the screen, to use the Resend API to send emails from an external domain, instead of their own gmail account. 
 
+![Third party Email result](./public/email-tp.png)
+
+This is what the third party email looks like.
+
 ---
 # *How it's Made*
 
