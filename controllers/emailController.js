@@ -48,12 +48,22 @@ async function sendEmailResendAPI(req, res) {
         
         const resend = new Resend;
 
-        const { senderName, receiver, subject } = req.body;
+        const { senderName, receiver, subject, body, sender } = req.body;
+        appendedBody = body + '\n\n\nThis email was sent through Smart Mailer. please reply to ' + sender;
+        const attachmentsArray = req.files?.map((file) => {
+          return { 
+            filename: file.originalname, 
+            content: file.buffer,
+            type: file.mimetype
+          };
+        }); 
+        
         const { data, error } = await resend.emails.send({
             from: `${senderName} <onboarding@resend.dev>`,
             to: receiver,
             subject,
-            html: '<p>Testing 123</p>'
+            text: appendedBody || 'Testing 123',
+            attachments: attachmentsArray
         })
         if (error) {
             console.log(error);
