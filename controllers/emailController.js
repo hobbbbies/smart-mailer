@@ -35,7 +35,6 @@ async function sendEmailThirdParty(req, res) {
   }
 }
 
-// Need a domain for this shit, not using it. 
 /**
  * @desc Send email using the Resend API (not used in production)
  */
@@ -66,6 +65,7 @@ async function sendEmailResendAPI(req, res) {
         res.status(500).json({ success: false, message: `Error sending email: ${error.message}` });
     }
 }
+
 /**
  * @desc Send email using the Gmail API with OAuth2 and optional base64 attachment
  */
@@ -85,6 +85,7 @@ async function sendEmailGmailApi(req, res) {
     // Fetch refresh token
     const tokenRecord = await prisma.oAuthToken.findUnique({ where: { email: sender } });
     if (!tokenRecord || !tokenRecord.refreshToken) {
+      console.error('No refresh token found in DB');
       return res.status(500).json({ success: false, message: 'No refresh token found in DB.' });
     }
     const oauth2Client = new google.auth.OAuth2(
