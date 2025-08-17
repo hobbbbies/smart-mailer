@@ -5,17 +5,26 @@ const emailController = require('../controllers/emailController');
 const jwt = require('jsonwebtoken');
 const getToken = require('../services/getToken'); 
 
+// Load environment variables
+require('dotenv').config();
+
 const { PrismaClient } = require('../generated/prisma');
 const prisma = new PrismaClient()
   
-console.log('Using redirect URI:', process.env.OAUTH_REDIRECT);
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('OAUTH_REDIRECT:', process.env.OAUTH_REDIRECT);
+console.log('OAUTH_REDIRECT_LOCAL:', process.env.OAUTH_REDIRECT_LOCAL);
+
+const redirectUri = process.env.NODE_ENV === 'development' 
+  ? process.env.OAUTH_REDIRECT_LOCAL 
+  : process.env.OAUTH_REDIRECT;
+
+console.log('Selected redirect URI:', redirectUri);
 
 const oauth2Client = new google.auth.OAuth2(
   process.env.OAUTH_CLIENT_ID,
   process.env.OAUTH_CLIENT_SECRET,
-  process.env.NODE_ENV === 'development' 
-    ? process.env.OAUTH_REDIRECT_LOCAL 
-    : process.env.OAUTH_REDIRECT
+  redirectUri
 );
 
 // const SCOPES = ['https://www.googleapis.com/auth/gmail.send'];
