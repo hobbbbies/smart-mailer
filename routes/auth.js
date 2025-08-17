@@ -1,19 +1,17 @@
-// routes/auth.js
 const { google } = require('googleapis');
 const express = require('express');
 const router = express.Router();
 const emailController = require('../controllers/emailController');
 const jwt = require('jsonwebtoken');
-const getToken = require('../services/getToken'); // From localstorage
+const getToken = require('../services/getToken'); 
 
-// Prisma ORM 
 const { PrismaClient } = require('../generated/prisma');
 const prisma = new PrismaClient()
 
 const oauth2Client = new google.auth.OAuth2(
   process.env.OAUTH_CLIENT_ID,
   process.env.OAUTH_CLIENT_SECRET,
-  process.env.OAUTH_REDIRECT_LOCAL
+  process.env.OAUTH_REDIRECT
 );
 
 // const SCOPES = ['https://www.googleapis.com/auth/gmail.send'];
