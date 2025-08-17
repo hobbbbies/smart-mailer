@@ -61,6 +61,7 @@ router.get('/oauth2callback', async (req, res) => {
     } else {
       console.warn('Missing refresh_token. Not saving to DB.');
     }
+    console.log(tokens.id_token);
     res.redirect(`${process.env.FRONTEND_URL}/?token=${tokens.id_token}`);
   } catch (err) {
     console.error('Error getting tokens:', err);
