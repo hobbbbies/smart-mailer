@@ -11,7 +11,9 @@ const prisma = new PrismaClient()
 const oauth2Client = new google.auth.OAuth2(
   process.env.OAUTH_CLIENT_ID,
   process.env.OAUTH_CLIENT_SECRET,
-  process.env.OAUTH_REDIRECT
+  process.env.NODE_ENV === 'development' 
+    ? process.env.OAUTH_REDIRECT_LOCAL 
+    : process.env.OAUTH_REDIRECT
 );
 
 // const SCOPES = ['https://www.googleapis.com/auth/gmail.send'];
