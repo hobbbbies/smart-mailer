@@ -8,7 +8,7 @@ const getToken = require('../services/getToken');
 const { PrismaClient } = require('../generated/prisma');
 const prisma = new PrismaClient()
   
-console.log('Using redirect URI:', redirectUri);
+console.log('Using redirect URI:', process.env.OAUTH_REDIRECT);
 
 const oauth2Client = new google.auth.OAuth2(
   process.env.OAUTH_CLIENT_ID,
