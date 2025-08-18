@@ -1,6 +1,6 @@
 # *Smart Mailer*
 
-**Smart Mailer** is an AI-powered email composer designed to simplify professional email writing for everyone. Whether you're using your personal Gmail account or (soon) a third-party SMTP provider, Smart Mailer helps you craft clear, effective email templates in seconds.  
+**Smart Mailer** is an AI-powered email composer designed to simplify professional email writing for everyone. Whether you're using your personal Gmail account through OAuth2 or (soon) a third-party SMTP provider, Smart Mailer helps you craft clear, effective email templates in seconds.  
 Simply describe what you want to say, and the AI will generate a high-quality draft that you can edit—or refine further with follow-up prompts for a more tailored message.  
 Smart Mailer also supports attachments for almost any file type, making it easy to send complete, professional emails without hassle.
 
