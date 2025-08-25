@@ -57,7 +57,7 @@ Secure Gmail integration using **OAuth 2.0**:
 - Uses Open AI API to create responses
 - Generates full email drafts from simple prompts.
 - Supports **follow-up prompts** for iterative editing.
-- Uses **Chat history**so that the model knows everything relevent to the prompt
+- Uses **Chat history** so that the model knows everything relevent to the prompt
 
 ---
 
