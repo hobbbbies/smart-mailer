@@ -8,7 +8,7 @@ Smart Mailer also supports attachments for almost any file type, making it easy 
 ### 🚀 LIVE DEMO
 
 👉 **Try Smart Mailer now:**  
-🔗 **https://smart-mailer-fe-production.up.railway.app/**
+🔗 **www.smartmailer-vi.xyz↗**
 ---
 
 ## 🎥 Demo
