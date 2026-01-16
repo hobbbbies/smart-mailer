@@ -11,7 +11,7 @@ Smart Mailer also supports attachments for almost any file type, making it easy 
 🔗 **www.smartmailer-vi.xyz**
 ---
 
-## 🎥 Demo
+## Demo
 
 ### See It in Action
 
@@ -34,7 +34,7 @@ This is what the third party email looks like.
 ---
 # *How it's Made*
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Frontend:** React  
 - **Backend:** Node.js, Express  
@@ -70,7 +70,7 @@ Secure Gmail integration using **OAuth 2.0**:
 
 ---
 
-## 🖥️ Frontend Overview
+## Frontend Overview
 - The frontend repo can be found [here](https://github.com/hobbbbies/smart-mailer-FE)
 
 ### 1. Main Page
@@ -137,15 +137,15 @@ Frontend **env variables:**
 
 Building Smart Mailer was not just a technical project—it was a learning experience that clarified some key habits and principles I’ll carry into future development work:
 
-### 🧠 1. Plan Before You Build
+### 1. Plan Before You Build
 
 At first, I underestimated how much planning even small features needed. I often dove in thinking I'd "figure it out as I go," but that usually led to rewriting logic or redoing UI components. Taking a few minutes to sketch out what needs to be done—what goes where, what data is needed—would’ve saved me a lot of time and frustration.
 
-### 🔍 2. Research Before You Code
+### 2. Research Before You Code
 
 The OAuth integration taught me this the hard way. I started implementing it with only a surface-level understanding, and ran into issues with scopes, consent screens, and token persistence. If I had read through Google's documentation more thoroughly before coding, I would have avoided hours of trial-and-error. Since then, I’ve learned to research a tool or API *before* trying to integrate it.
 
-### 💾 3. Commit Frequently
+### 3. Commit Frequently
 
 Early on, I lost a working version of my app after experimenting with a few new changes that broke things—and I had no clean commit to revert to. That moment made me realize the value of committing more often, even for minor changes. Frequent commits provide a safety net and make debugging much easier.
 
